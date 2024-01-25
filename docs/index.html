@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAR File Terminal Simulator</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: black;
+            color: lime;
+            padding: 20px;
+            margin: 0;
+        }
+
+        #terminal {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+<div id="terminal"></div>
+
+<script>
+    // Simulate terminal behavior
+    function simulateTerminal(jarContent) {
+        const terminal = document.getElementById('terminal');
+        const lines = jarContent.split('\n');
+
+        function printLine(line) {
+            terminal.innerHTML += line + '<br>';
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        lines.forEach((line, index) => {
+            setTimeout(() => {
+                printLine(line);
+            }, index * 50);
+        });
+    }
+
+    // Replace 'your-jar-file.jar' with the actual path to your JAR file
+    fetch('RedScare.jar')
+        .then(response => response.text())
+        .then(data => simulateTerminal(data))
+        .catch(error => console.error('Error loading JAR file:', error));
+</script>
+
+</body>
+</html>
